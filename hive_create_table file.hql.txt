@@ -1,3 +1,5 @@
+--table for tip.json
+
 create external table tip (
 	user_id string,
 	business_id string,
@@ -8,6 +10,7 @@ create external table tip (
 stored as parquet
 location '/user/cloudera/output/yelp/tips';
 
+--table for review.json
 
 create external table review (
     review_id string,
@@ -24,6 +27,7 @@ stored as parquet
 location  '/user/cloudera/output/yelp/reviews';
 
 
+--table for user.json
 create external table user (
     user_id string,
     name string,
@@ -49,3 +53,13 @@ create external table user (
 )
 stored as parquet
 location  '/user/cloudera/output/yelp/user';
+
+
+-- normalizing user.json to seperate out user_id and friend_id
+
+create external table user_friends (
+    user_id string,
+    friend_id string
+)
+stored as parquet
+location  '/user/cloudera/output/yelp/user_friends';

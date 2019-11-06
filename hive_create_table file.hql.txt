@@ -24,3 +24,28 @@ stored as parquet
 location  '/user/cloudera/output/yelp/reviews';
 
 
+create external table user (
+    user_id string,
+    name string,
+    review_count bigint,
+    yelping_since string,
+    useful bigint,
+    funny bigint,
+    cool bigint,
+    fans bigint,
+    elite array<bigint>,
+    average_stars double,
+    compliment_hot bigint,
+    compliment_more bigint,
+    compliment_profile bigint,
+    compliment_cute bigint,
+    compliment_list bigint,
+    compliment_note bigint,
+    compliment_plain bigint,
+    compliment_cool bigint,
+    compliment_funny bigint,
+    compliment_writer bigint,
+    compliment_photos bigint
+)
+stored as parquet
+location  '/user/cloudera/output/yelp/user';

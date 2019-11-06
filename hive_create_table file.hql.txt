@@ -26,8 +26,8 @@ create external table review (
 stored as parquet
 location  '/user/cloudera/output/yelp/reviews';
 
-
---table for user.json
+/*table for user.json
+to be noted here that friends field has been removed from this table as part of normalization */
 create external table user (
     user_id string,
     name string,

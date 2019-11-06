@@ -18,13 +18,14 @@ import org.apache.spark.sql.hive.HiveContext
 val hiveCtx = new HiveContext(sc)
 import hiveCtx.implicits._
 
-
-
-
-
-
 //Another wai write directly to a hive table already created in hive using insertInto command
 
 val reviewDF = hiveCtx.jsonFile("/user/cloudera/rawdata/yelp/reviews").
 		select("review_id","user_id","business_id","stars","text","date","votes.cool","votes.funny","votes.useful")
 reviewDF.write.insertInto("yelp.review")
+
+
+// normalizing the user dataset to a many-to-many self referencing model
+val userDF = hiveCtx.jsonFile("/user/cloudera/rawdata/yelp/users")
+
+val friends = userDF.select("user_id", "friends").rdd

@@ -7,8 +7,6 @@ val refinedTipDF = tipDF.select("user_id","business_id","likes","text","date").r
 refinedTipDF.write.parquet("/user/cloudera/output/yelp/tips")
 
 //we build the hive tip table on top of this output to allow users query our data
-
-
 import org.apache.spark.sql.Row
 
 

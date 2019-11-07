@@ -27,3 +27,20 @@ reviewDF.write.insertInto("yelp.review")
 val userDF = hiveCtx.jsonFile("/user/cloudera/rawdata/yelp/users")
 
 val friends = userDF.select("user_id", "friends").rdd
+
+def parseRow(row: Row) : Seq[(String, String)] ={
+	val user_Id = row.getAs[String](0)
+	val fList = row.getAs[scala.collection.mutable.WrappedArray[String]](1)
+
+	fList.map(s => (user_Id, s))
+}
+
+
+val userfriendDF = friends.flatMap(parseRow(_)).toDF
+//write into database table
+userfriendDF.write.insertInto("user_friends")
+
+
+val userMainDF = userDF.select("user_id","name","review_count","yelping_since","votes.useful","votes.funny","votes.cool","fans","elite","average_stars","compliments.hot",  "compliments.more", "compliments.profile", "compliments.cute", "compliments.list", "compliments.note", "compliments.plain", "compliments.cool", "compliments.funny", "compliments.writer", "compliments.photos")
+
+ userMainDF.write.insertInto("user")
